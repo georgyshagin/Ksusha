@@ -15,7 +15,6 @@
 
 // Type Image - картинка без анимации
 
-
 $(document).ready(function(){
     $('.diploma__link').magnificPopup({
 		type: 'image'
@@ -30,10 +29,21 @@ $(document).ready(function(){
         slidesToShow: 3,              
         responsive: [        
             {
-                breakpoint: 767,                
+                breakpoint: 992,
+                settings: {
+                //   arrows: false,
+                //   centerMode: true,
+                //   centerPadding: '40px',
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 768,                
                 settings: {                                       
                     dots: true,
-                    arrows: false                    
+                    arrows: false,
+                    slidesToShow: 1                 
                 }
             }            
         ]
@@ -44,8 +54,30 @@ $(document).ready(function(){
 		slidesToShow: 1,
 		slidesToScroll: 1,
         arrows: false,
-        dots: true               
+        dots: true,        
+        responsive: [
+            {
+              breakpoint: 1221,
+              settings: {
+                adaptiveHeight: true
+              }
+            }
+        ]               
 	});
+   
+    $('.hamburger').click(function() {        
+        $(this).toggleClass('active');
+        $('.header').toggleClass('active');
+    });
+
+    // $("a.scroll-to").on("click", function(e){
+    //     e.preventDefault();
+    //     var anchor = $(this).attr('href');
+    //     $('html, body').stop().animate({
+    //         scrollTop: $(anchor).offset().top - 60
+    //     }, 800);
+    // });
+    
 
 });
 
