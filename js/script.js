@@ -1,20 +1,3 @@
-// $(function() {
-// 	$('.popup-link').magnificPopup({
-// 		delegate: 'a',
-//         type: 'image',
-//         gallery: {
-//            enabled: true,
-//         },
-//         zoom: {
-// 	        enabled: true,
-// 	        duration: 300
-// 		}
-// 	});
-// });
-
-
-// Type Image - картинка без анимации
-
 $(document).ready(function(){
     $('.diploma__link').magnificPopup({
 		type: 'image'
@@ -67,6 +50,11 @@ $(document).ready(function(){
    
     $('.hamburger').click(function() {        
         $(this).toggleClass('active');
+        $('.header').toggleClass('active');
+    });
+
+    $('.header a').click(function() {
+        $('.hamburger').toggleClass('active');
         $('.header').toggleClass('active');
     });
 
