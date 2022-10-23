@@ -47,7 +47,9 @@ $(document).ready(function(){
             }
         ]               
 	});
-   
+
+    // Скрытие меню после клика
+
     $('.hamburger').click(function() {        
         $(this).toggleClass('active');
         $('.header').toggleClass('active');
@@ -58,13 +60,37 @@ $(document).ready(function(){
         $('.header').toggleClass('active');
     });
 
-    // $("a.scroll-to").on("click", function(e){
-    //     e.preventDefault();
-    //     var anchor = $(this).attr('href');
-    //     $('html, body').stop().animate({
-    //         scrollTop: $(anchor).offset().top - 60
-    //     }, 800);
-    // });
+    // Плавный скролл
+
+    $('.header a').on('click', function() {
+
+        let href = $(this).attr('href');
+    
+        $('html, body').animate({
+            scrollTop: $(href).offset().top
+        }, {
+            duration: 800,   // по умолчанию «400» 
+            easing: "linear" // по умолчанию «swing» 
+        });
+    
+        return false;
+    });
+
+    // Прокрутка вверх
+
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 1100) {
+            $('.pagetop').fadeIn();
+        } else {
+            $('.pagetop').fadeOut();
+        }
+    });
+
+    $("a[href='#top']").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+
     
 
 });
