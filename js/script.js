@@ -87,12 +87,7 @@ $(document).ready(function(){
 
     // Валидация и маска формы
 
-    // $('input[name=phone]').mask("+7 (999) 999-99-99");
-
-    let cleave = new Cleave('input[name=phone]', {
-        phone: true,
-        phoneRegionCode: '{country}'
-    });
+    $('input[name=phone]').mask("+7 (999) 999-99-99");
 
     function validateForms(form) {
         $(form).validate({
