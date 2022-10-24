@@ -14,9 +14,6 @@ $(document).ready(function(){
             {
                 breakpoint: 992,
                 settings: {
-                //   arrows: false,
-                //   centerMode: true,
-                //   centerPadding: '40px',
                     slidesToShow: 2,
                     slidesToScroll: 1
                 }
@@ -63,16 +60,13 @@ $(document).ready(function(){
     // Плавный скролл
 
     $('.header a').on('click', function() {
-
-        let href = $(this).attr('href');
-    
+        let href = $(this).attr('href');    
         $('html, body').animate({
             scrollTop: $(href).offset().top
         }, {
             duration: 800,   // по умолчанию «400» 
             easing: "linear" // по умолчанию «swing» 
-        });
-    
+        });    
         return false;
     });
 
@@ -86,12 +80,75 @@ $(document).ready(function(){
         }
     });
 
-    $("a[href='#top']").click(function() {
+    $('.pagetop').click(function() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
+    });   
+
+    // Валидация и маска формы
+
+    // $('input[name=phone]').mask("+7 (999) 999-99-99");
+
+    let cleave = new Cleave('input[name=phone]', {
+        phone: true,
+        phoneRegionCode: '{country}'
     });
 
+    function validateForms(form) {
+        $(form).validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },                
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: "required"
+            },
+            messages: {
+                name: {
+                    required: "Пожалуйста, введите Ваше имя и фамилию",
+                    minlength: jQuery.validator.format("Введите {0} символа!")
+                },
+                email: {
+                    required: "Пожалуйста, введите Ваш e-mail",
+                    email: "Неправильно введен e-mail"
+                },
+                phone: "Пожалуйста, введите Ваш контактный телефон"                
+            }
+        });
+    }
+
+    validateForms('#feedback__form');
+
+    // Отправка формы
+
+    $('#feedback__form').submit(function(e) {
+        e.preventDefault();
+
+        if(!$(this).valid()) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "phpmailer/send.php",
+            data: $(this).serialize()
+        }).done(function() {
+            $(this).find("input").val("");
+
+            $('#feedback__form').trigger('reset');
+        });
+        return false;
+    });
     
 
+
+    // <input name="name" required placeholder="Ваше имя и фамилия" type="text">
+    // <input name="email" required placeholder="Ваш e-mail" type="email">
+    // <input name="phone" required placeholder="Контактный телефон">
+    // <textarea name="text" placeholder="Комментарий"></textarea>
 });
 
